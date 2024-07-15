@@ -8,7 +8,7 @@ import { env } from "../env";
 
 
 export async function  confirmParticipants(app: FastifyInstance) {
-    app.withTypeProvider<ZodTypeProvider>().get('/participants/:participantId/confirm', {
+    app.withTypeProvider<ZodTypeProvider>().patch('/participants/:participantId/confirm', {
         schema: {
           params: z.object({
             participantId: z.string().uuid()
@@ -25,7 +25,7 @@ export async function  confirmParticipants(app: FastifyInstance) {
         })
         
         if(!participantId) {
-            throw new ClientError('partcipant not found')
+            throw new ClientError('participant not found')
         }
 
         if(participant?.is_confirmed){
