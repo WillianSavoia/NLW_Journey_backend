@@ -4,7 +4,6 @@ import { z } from 'zod'
 import { prisma } from "../lib/prisma";
 import { getMailClient } from "../lib/mail";
 import nodemailer from 'nodemailer'
-import { create } from "domain";
 import { dayjs } from '../lib/dayjs'
 import { ClientError } from "../errors/client-error";
 import { env } from "../env";
@@ -67,7 +66,7 @@ export async function  createTrip(app: FastifyInstance) {
         const message = await mail.sendMail({
             from: {
                 name: "equipe Plann.er",
-                address: "williansanchessavoia@gmail.com"
+                address: "test@gmail.com"
             },
             to: {
                 name: owner_name,

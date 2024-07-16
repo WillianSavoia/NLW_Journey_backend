@@ -19,12 +19,13 @@ export async function createInvite(app: FastifyInstance) {
         }),
         body: z.object({
           email: z.string().email(),
+          name: z.string()
         }),
       },
     },
     async (request) => {
       const { tripId } = request.params
-      const { email } = request.body
+      const { email, name } = request.body
 
       const trip = await prisma.trip.findUnique({
         where: { id: tripId }
@@ -36,6 +37,7 @@ export async function createInvite(app: FastifyInstance) {
 
         const participant = await prisma.participant.create({
             data: {
+                name,
                 email,
                 trip_id: tripId
             }
@@ -49,12 +51,12 @@ export async function createInvite(app: FastifyInstance) {
         const mail = await getMailClient()
         
      
-                const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`
+        const confirmationLink = `${env.API_BASE_URL}/participants/${participant.id}/confirm`
 
         const message = await mail.sendMail({
             from: {
                 name: "equipe Plann.er",
-                address: "williansanchessavoia@gmail.com"
+                address: "tesrt@gmail.com"
             },
             to: participant.email,
             subject: `Confirme sua viagem para ${trip.destination}em ${formatStartDay}`,
